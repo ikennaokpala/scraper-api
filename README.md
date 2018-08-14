@@ -49,7 +49,7 @@ must be merged into master.  We will only evaulate code in the master branch.
 
 ### Time
 
-Take as much time as you need (please no more than a day's worth, but it can be much less) to implement a solution that addresses the evaluation criteria below. We care primarily about your approach to the problem and implementing a “perfect” solution is not desirable or necessary.  The test does not have to be completed in a single sitting, you are welcome to do the work in serpate chunks of time. 
+Take as much time as you need (please no more than a day's worth, but it can be much less) to implement a solution that addresses the evaluation criteria below. We care primarily about your approach to the problem and implementing a “perfect” solution is not desirable or necessary.  The test does not have to be completed in a single sitting, you are welcome to do the work in serpate chunks of time.
 
 ### Finishing the test
 
@@ -70,3 +70,27 @@ We will be considering the following aspects of your solution:
 * Suitability of technologies used
 * Use of gems and third party libraries
 * Ruby on Rails is a must
+
+## Program notes
+
+### Pre-requisites
+
+- Ruby version (See Gemfile and .ruby-version)
+  - 2.5.0
+- Version manager
+  - RVM (Gemset: 2.5.0@tech-test-io)
+
+- Bundle install required packages
+
+```bash
+  bundle install
+```
+
+### Test Program
+
+
+```bash
+
+bundle exec rspec .
+
+```
