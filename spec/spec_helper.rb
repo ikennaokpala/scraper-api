@@ -94,3 +94,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+def fixtures_file(name)
+  File.read(File.expand_path("fixtures/static/#{name}", File.dirname(__FILE__)))
+end

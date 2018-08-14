@@ -37,6 +37,7 @@ end
 group :test do
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'json_matchers'
+  gem 'webmock'
 end
 
 group :development do
