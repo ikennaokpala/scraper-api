@@ -1,49 +1,61 @@
 class MasScraper
-  Translation = Struct.new(:locale, :article)
+  attr_accessor :accumulator
+
   def self.call(markup, domain, target)
-    new(markup, domain, target).call
+    new(markup, domain, target).call { |scraper, translation| yield scraper, translation }
   end
 
   def initialize(markup, domain, target)
     @markup = markup
     @domain = domain
     @target = target
+    @accumulator = []
   end
 
   def call
-    document.css(target).inject([]) do |accumulator, anchor|
-      accumulator << Translation.new(locale, ArticleParser.new(anchor, domain).call)
-      accumulator
+    document.css(target).each do |anchor|
+      yield(self, SearchService::Translation.new(locale, ArticleParser.new(anchor, domain).call))
     end
+    accumulator
+  end
+
+  def welsh_url(markup, target)
+    domain + document(markup).css(target).first['href']
+  end
+
+  def welsh_title(markup, target)
+    document(markup).css(target).first.text
+  end
+
+  def welsh_locale(markup)
+    locale(markup)
   end
 
 private
 
   attr_reader :markup, :domain, :target
 
-  def document
-    Nokogiri::HTML(markup)
+  def document(given_markup = markup)
+    Nokogiri::HTML(given_markup)
   end
 
-  def locale
-    document.css('html').attribute('lang').value.to_sym
+  def locale(given_markup = markup)
+    document(given_markup).css('html').attribute('lang').value.to_sym
   end
 
   class ArticleParser
-    Article = Struct.new(:title, :url)
-
     def initialize(anchor, domain)
       @anchor = anchor
       @domain = domain
     end
 
     def call
-      Article.new(title, url)
+      SearchService::Article.new(title, url)
     end
 
   private
 
-    attr_reader :anchor, :domain
+    attr_reader :anchor, :domain, :accumulator
 
     def url
       domain + anchor['href']
