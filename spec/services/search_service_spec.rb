@@ -4,7 +4,7 @@ RSpec.describe SearchService do
   describe '#results' do
     let(:term) { 'Mortgages – a beginner’s guide' }
     let(:scraper) { MasScraper }
-    let(:titles) { subject.map { |article| article['en'].title } }
+    let(:titles) { subject.map { |translation| translation.article.title } }
     let(:return_params) { { status: 200, body: fixtures_file('search.html'), headers: {} } }
     let(:service) { described_class.new(term, scraper) }
     let(:uri) { service.search_uri }
@@ -25,7 +25,7 @@ RSpec.describe SearchService do
 
     context 'user provides search term' do
       it 'returns article\'s with title and url for English' do
-        expect(subject.first).to have_key(:en)
+        expect(subject.first.locale).to eq(:en)
         expect(titles).to include(term)
         expect(subject.to_json).to match_response_schema('v1/articles/search/articles')
       end

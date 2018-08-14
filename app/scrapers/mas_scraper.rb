@@ -1,4 +1,5 @@
 class MasScraper
+  Translation = Struct.new(:locale, :article)
   def self.call(markup, domain, target)
     new(markup, domain, target).call
   end
@@ -11,7 +12,7 @@ class MasScraper
 
   def call
     document.css(target).inject([]) do |accumulator, anchor|
-      accumulator << { locale => ArticleParser.new(anchor, domain).call }.with_indifferent_access
+      accumulator << Translation.new(locale, ArticleParser.new(anchor, domain).call)
       accumulator
     end
   end
@@ -25,7 +26,7 @@ private
   end
 
   def locale
-    document.css('html').attribute('lang').value
+    document.css('html').attribute('lang').value.to_sym
   end
 
   class ArticleParser
