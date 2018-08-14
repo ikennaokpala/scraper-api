@@ -11,6 +11,10 @@ class SearchService
     new(term, scraper).results
   end
 
+  def self.first_result_only(term)
+    results(term).first
+  end
+
   def initialize(term, scraper = MasScraper)
     @term = term
     @scraper = scraper

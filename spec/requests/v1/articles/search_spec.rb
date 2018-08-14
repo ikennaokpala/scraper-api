@@ -29,7 +29,7 @@ RSpec.describe '/v1/articles/search' do
 
     it 'performs request successfully' do
       expect(response).to have_http_status(200)
-      expect(response).to match_response_schema('v1/articles/search/articles')
+      expect(response).to match_response_schema('v1/articles/search/article')
     end
   end
 end
