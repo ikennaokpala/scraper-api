@@ -1,22 +1,15 @@
 {
-   "$schema": "http://json-schema.org/draft-07/schema#",
-   "definitions": {
-      "article": {
-         "type": "object",
-         "properties": {
-            "title": {
-               "type": "string"
-            },
-            "url": {
-               "type": "string"
-            }
-         }
-      }
-   },
-   "type": "object",
-   "patternProperties": {
-     "^en|cy": {
-        "$ref": "#/definitions/article"
-      }
+   "id": "file:/v1/articles/search/article.json#",
+   "type":"object",
+   "required":[
+
+   ],
+   "properties": {
+     "title": {
+       "type": "string"
+     },
+     "url": {
+       "type": "string"
+     }
    }
 }
